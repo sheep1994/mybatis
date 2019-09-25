@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.talent.DemoMapper">
+
+    <!--
+        开启本mapper的namespace下的二级缓存
+        eviction:缓存回收策略
+            LRU:最近最少使用
+            FIFO:先进先出
+            SOFT:软引用
+            WEAK:弱引用
+        flushInterval:刷新间隔时间，单位毫秒。如果不配置，默认是sql执行的时候才会去刷新缓存
+        readOnly:只读，意味着缓存数据只能读取，不能改变
+        size:引用数目。缓存最多可以存储多少个对象
+     -->
+    <cache eviction="LRU" flushInterval="100000" readOnly="true" size="1024" />
+
+    <resultMap id="student" type="com.talent.Student">
+      <id column="id" property="id" jdbcType="VARCHAR" />
+      <result column="name" property="name" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="cloumn_list">
+      id, name
+    </sql>
+
+    <select id="selectAll" resultMap="student">
+      select
+      <include refid="cloumn_list"/>
+      from student where id = #{arg0} and name = #{arg1}
+    </select>
+
+</mapper>
