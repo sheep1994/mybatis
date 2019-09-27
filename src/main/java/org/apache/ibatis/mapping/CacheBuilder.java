@@ -123,7 +123,7 @@ public class CacheBuilder {
   }
 
   /**
-   * 设置标准装饰器
+   * 设置标准装饰器   使用了装饰者模式
    * @param cache
    * @return
    */
@@ -133,6 +133,7 @@ public class CacheBuilder {
       if (size != null && metaCache.hasSetter("size")) {
         metaCache.setValue("size", size);
       }
+      // flushInterval间隔多久进行刷新  之后配置了flushInterval，才会装饰ScheduledCache
       if (clearInterval != null) {
         cache = new ScheduledCache(cache);
         ((ScheduledCache) cache).setClearInterval(clearInterval);

@@ -40,7 +40,7 @@ public class Test {
     InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream(resource);
     // 创建sqlSessionFactory
     SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(stream);
-    // 打开一个sqlSession
+    // 打开一个sqlSession， mybatis默认不是自动提交
     SqlSession sqlSession = sqlSessionFactory.openSession();
     // 拿到一个动态代理后的Mapper
     DemoMapper demoMapper = sqlSession.getMapper(DemoMapper.class);

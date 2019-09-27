@@ -108,7 +108,7 @@ public class SimpleExecutor extends BaseExecutor {
     Statement stmt;
     // 获取连接信息
     Connection connection = getConnection(statementLog);
-    //初始化PreparedStatement对象
+    //初始化PreparedStatement对象   在执行初始化方法的时候会先执行插件方法
     stmt = handler.prepare(connection, transaction.getTimeout());
     // 真正开始赋值
     handler.parameterize(stmt);

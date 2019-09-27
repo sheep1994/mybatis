@@ -39,9 +39,21 @@ public class TransactionalCache implements Cache {
 
   private static final Log log = LogFactory.getLog(TransactionalCache.class);
 
+  /**
+   * 缓存对象
+   */
   private final Cache delegate;
+  /**
+   * 是否需要清空待提交空间的标识
+   */
   private boolean clearOnCommit;
+  /**
+   * 所有待提交的缓存集合
+   */
   private final Map<Object, Object> entriesToAddOnCommit;
+  /**
+   * 未命中的缓存集合   防止缓存穿透使用的  即访问一个为null的数据
+   */
   private final Set<Object> entriesMissedInCache;
 
   public TransactionalCache(Cache delegate) {
@@ -76,8 +88,14 @@ public class TransactionalCache implements Cache {
     }
   }
 
+  /**
+   * 本来应该put进缓存中
+   * @param key Can be any object but usually it is a {@link CacheKey}
+   * @param object
+   */
   @Override
   public void putObject(Object key, Object object) {
+    // put进待提交的集合容器中
     entriesToAddOnCommit.put(key, object);
   }
 

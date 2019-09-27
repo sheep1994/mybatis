@@ -29,6 +29,9 @@ public class LruCache implements Cache {
 
   private final Cache delegate;
   private Map<Object, Object> keyMap;
+  /**
+   * 存放最近最少使用的key. 采用LinkedHashMap实现
+   */
   private Object eldestKey;
 
   public LruCache(Cache delegate) {

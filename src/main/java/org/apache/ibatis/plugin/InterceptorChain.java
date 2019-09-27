@@ -26,6 +26,11 @@ public class InterceptorChain {
 
   private final List<Interceptor> interceptors = new ArrayList<>();
 
+  /**
+   * 直接点击这个pluginAll方法可以看到哪里调用了。可以发现是mybatis的四大对象调用了插件方法
+   * @param target Executor   ParameterHandler   ResultSetHandler   StatementHandler
+   * @return
+   */
   public Object pluginAll(Object target) {
     for (Interceptor interceptor : interceptors) {
       target = interceptor.plugin(target);

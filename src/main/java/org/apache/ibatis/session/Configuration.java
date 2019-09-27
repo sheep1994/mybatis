@@ -294,10 +294,12 @@ public class Configuration {
     typeAliasRegistry.registerAlias("UNPOOLED", UnpooledDataSourceFactory.class);
 
     typeAliasRegistry.registerAlias("PERPETUAL", PerpetualCache.class);
+    /* 缓存 start */
     typeAliasRegistry.registerAlias("FIFO", FifoCache.class);
     typeAliasRegistry.registerAlias("LRU", LruCache.class);
     typeAliasRegistry.registerAlias("SOFT", SoftCache.class);
     typeAliasRegistry.registerAlias("WEAK", WeakCache.class);
+    /* 缓存 end */
 
     typeAliasRegistry.registerAlias("DB_VENDOR", VendorDatabaseIdProvider.class);
 
@@ -732,6 +734,7 @@ public class Configuration {
     if (cacheEnabled) {
       executor = new CachingExecutor(executor);
     }
+    // 添加执行器插件
     executor = (Executor) interceptorChain.pluginAll(executor);
     return executor;
   }
